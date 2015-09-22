@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922113855) do
+ActiveRecord::Schema.define(version: 20150922120220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,19 @@ ActiveRecord::Schema.define(version: 20150922113855) do
     t.string   "avs_response"
     t.datetime "created_at",                                              null: false
     t.datetime "updated_at",                                              null: false
+  end
+
+  create_table "shipments", force: :cascade do |t|
+    t.string   "tracking"
+    t.string   "number"
+    t.decimal  "cost",               precision: 8, scale: 2
+    t.datetime "shipped_at"
+    t.integer  "order_id"
+    t.integer  "shipping_method_id"
+    t.integer  "address_id"
+    t.string   "state"
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
   create_table "shipping_methods", force: :cascade do |t|
