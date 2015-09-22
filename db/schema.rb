@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922120220) do
+ActiveRecord::Schema.define(version: 20150922144918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20150922120220) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "inventory_units", force: :cascade do |t|
+    t.integer  "lock_version",            default: 0
+    t.string   "state"
+    t.integer  "variant_id"
+    t.integer  "order_id"
+    t.integer  "shipment_id"
+    t.integer  "return_authorization_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -72,6 +83,16 @@ ActiveRecord::Schema.define(version: 20150922120220) do
     t.string   "avs_response"
     t.datetime "created_at",                                              null: false
     t.datetime "updated_at",                                              null: false
+  end
+
+  create_table "return_authorizations", force: :cascade do |t|
+    t.string   "number"
+    t.string   "state"
+    t.decimal  "amount",     precision: 8, scale: 2, default: 0.0, null: false
+    t.integer  "order_id"
+    t.text     "reason"
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
   end
 
   create_table "shipments", force: :cascade do |t|
